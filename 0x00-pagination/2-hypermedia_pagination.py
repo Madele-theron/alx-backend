@@ -2,7 +2,7 @@
 """A module -> pagination"""
 
 import csv
-from typing import List
+from typing import List, Dict, Any
 import math
 index_range = __import__("0-simple_helper_function").index_range
 
@@ -39,8 +39,10 @@ class Server:
         result = self.dataset()
         return result[start_index:end_index]
 
-    def get_hyper(self, page: int = 1, page_size: int = 10) -> dict:
+    def get_hyper(self, page: int = 1, page_size: int = 10) -> Dict[str, Any]:
         """Returns a dictionary of paginated information"""
+        assert isinstance(page, int) and page > 0
+        assert isinstance(page_size, int) and page_size > 0
 
         # Get the page data
         page_data = self.get_page(page, page_size)
