@@ -48,7 +48,7 @@ class Server:
         page_data = self.get_page(page, page_size)
 
         # Calculate the pagination information
-        total_pages = math.ceil(len(self.dataset) / page_size)
+        total_pages = math.ceil(len(self.dataset()) / page_size)
         has_next_page = page < total_pages
         has_prev_page = page > 1
 
