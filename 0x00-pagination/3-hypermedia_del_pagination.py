@@ -55,10 +55,10 @@ class Server:
                 data.append(self.indexed_dataset()[i])
 
         pagination_data = {
-            'data': data,
             'index': index,
             'next_index': next_index,
-            'page_size': page_size
+            'page_size': page_size,
+            'data': data
         }
 
         return pagination_data
