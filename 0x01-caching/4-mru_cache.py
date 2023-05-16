@@ -32,7 +32,7 @@ class MRUCache(BaseCaching):
                 discarded_item = next(reversed(self.cache_data))
                 del self.cache_data[discarded_item]
                 print(f"DISCARD: {discarded_item}")
-                
+
         # Update value for key
         self.cache_data[key] = item
 
