@@ -45,5 +45,8 @@ class LRUCache(BaseCaching):
         """
         if key is None or key not in self.cache_data:
             return None
+        
+        # new key goes to end of dict
+        self.cache_data.move_to_end(key)
 
         return self.cache_data[key]
