@@ -67,7 +67,8 @@ class LFUCache(BaseCaching):
 
         # move item to next frequency
         frequency_count = self.cache_data[key]
-        self.frequency[frequency_count].move_to_end(key)
-        self.cache_data[key] += 1
+        if key in self.frequency[frequency_count]:
+            self.frequency[frequency_count].move_to_end(key)
+            self.cache_data[key] += 1
 
         return self.cache_data[key]
