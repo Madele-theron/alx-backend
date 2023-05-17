@@ -31,15 +31,15 @@ class LFUCache(BaseCaching):
         else:
             # If cache is full find least frequency used item
             if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
-                min_frequency = min(self.frequency.keys())
-                discarded_item = next(iter(self.frequency[min_frequency]))
+                min_frequency = min(int(f) for f in self.frequency.keys())
+                discarded_item = next(iter(self.frequency[str(min_frequency)]))
 
                 # if there are more than one item with least frequency
                 # use LRU method
-                if len(self.frequency[min_frequency]) > 1:
-                    del self.frequency[min_frequency][discarded_item]
+                if len(self.frequency[str(min_frequency)]) > 1:
+                    del self.frequency[str(min_frequency)][discarded_item]
                 else:
-                    del self.frequency[min_frequency]
+                    del self.frequency[str(min_frequency)]
                     del self.cache_data[discarded_item]
 
                 print(f"DISCARD: {discarded_item}")
