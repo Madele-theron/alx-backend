@@ -37,13 +37,13 @@ def get_user() -> Union[dict, None]:
         user dict if user_id exists, else None
     """
     login_user = request.args.get('login_as', None)
-    
+
     if login_user is None:
         return None
-    
+
     user: dict = {}
     user[login_user] = users.get(int(login_user))
-    
+
     return user[login_user]
 
 
@@ -61,7 +61,6 @@ def before_request(login_as: int = None):
     user_id: int = request.args.get('login_as')
     g.user = get_user(user_id)
 
-    
 
 @babel.localeselector
 def get_locale():
