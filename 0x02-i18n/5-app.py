@@ -41,10 +41,7 @@ def get_user() -> Union[dict, None]:
     if login_user is None:
         return None
 
-    user: dict = {}
-    user[login_user] = users.get(int(login_user))
-
-    return user[login_user]
+    return users.get(int(login_user))
 
 
 @app.before_requests
@@ -58,8 +55,8 @@ def before_request(login_as: int = None):
     Returns:
         user and set as flask.g.user
     """
-    user_id: int = request.args.get('login_as')
-    g.user = get_user(user_id)
+    user: dict = get_user()
+    g.user = user
 
 
 @babel.localeselector
