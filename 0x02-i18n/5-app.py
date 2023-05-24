@@ -36,19 +36,15 @@ def get_user() -> Union[dict, None]:
     Returns:
         user dict if user_id exists, else None
     """
-    login_user = request.args.get('login_as', None)
-
-    if login_user is None:
+    try:
+        user_id = request.args.get('login_as', None)
+        return users[int(user_id)]
+    except Exception:
         return None
-
-    user: dict = {}
-    user[login_user] = users.get(int(login_user))
-
-    return user[login_user]
 
 
 @app.before_requests
-def before_request(login_as: int = None):
+def before_request():
     """find a user if any, and set it as a global on
     flask.g.user.
 
@@ -58,9 +54,7 @@ def before_request(login_as: int = None):
     Returns:
         user and set as flask.g.user
     """
-    user: dict = get_user()
-    g.user = user
-    print(user)
+    g.user = get_user()
 
 
 @babel.localeselector
@@ -79,7 +73,7 @@ def get_locale():
 
 
 @app.route('/', methods=['GET'], strict_slashes=False)
-def hello_world():
+def root():
     """
     Single route that simply outputs
     'Welcome to Holberton' - page title
@@ -92,4 +86,4 @@ def hello_world():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port="5000")
+    app.run()
