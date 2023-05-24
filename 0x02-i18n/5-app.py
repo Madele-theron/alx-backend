@@ -40,7 +40,7 @@ def get_user() -> Union[dict, None]:
 
     if login_user is None:
         return None
-    
+
     user: dict = {}
     user[login_user] = users.get(int(login_user))
 
