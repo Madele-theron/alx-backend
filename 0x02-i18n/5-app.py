@@ -27,7 +27,7 @@ app.config.from_object(Config)
 babel = Babel(app)
 
 
-def get_user(user_id: int) -> Union[dict, None]:
+def get_user() -> Union[dict, None]:
     """Retrieve user dict based on user_id
 
     Args:
@@ -36,19 +36,16 @@ def get_user(user_id: int) -> Union[dict, None]:
     Returns:
         user dict if user_id exists, else None
     """
-    if user_id in users:
-        return users[user_id]
-    return None
+    login_user = request.args.get('login_as', None)
+    
+    if login_user is None:
+        return None
+    
+    user: dict = {}
+    user[login_user] = users.get(int(login_user))
+    
+    return user[login_user]
 
-    # login_user = request.args.get('login_as', None)
-
-    # if login_user is None:
-    #     return None
-
-    # user: dict = {}
-    # user[login_user] = users.get(int(login_user))
-
-    # return user[login_user]
 
 @app.before_requests
 def before_request(login_as: int = None):
