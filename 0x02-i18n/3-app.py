@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """A basic Flask app setup with config object"""
 from flask import Flask, render_template, request
-from flask_babel import Babel
+from flask_babel import Babel, _
 app = Flask(__name__)
 
 
@@ -26,7 +26,7 @@ def get_locale():
     return request.accept_languages.best_match(app.config['LANGUAGES'].keys())
 
 
-@app.route('/', strict_slashes=False)
+@app.route('/', methods=['GET'], strict_slashes=False)
 def hello_world():
     """
     Single route that simply outputs
