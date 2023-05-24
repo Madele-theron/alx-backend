@@ -1,17 +1,19 @@
 #!/usr/bin/env python3
-"""A basic Flask app setup with config object"""
+"""A basic Flask app setup with config object
+force a particular locale
+"""
 from flask import Flask, render_template, request
 from flask_babel import Babel, _
-app = Flask(__name__)
 
 
 class Config():
-    """Babel configuration"""
+    """Babel configuration class"""
     LANGUAGES = ["en", "fr"]
     BABEL_DEFAULT_LOCALE = 'en'
     BABEL_DEFAULT_TIMEZONE = 'UTC'
 
 
+app = Flask(__name__)
 app.config.from_object(Config)
 babel = Babel(app)
 
