@@ -40,8 +40,11 @@ def get_user() -> Union[dict, None]:
 
     if login_user is None:
         return None
+    
+    user: dict = {}
+    user[login_user] = users.get(int(login_user))
 
-    return users.get(int(login_user))
+    return user[login_user]
 
 
 @app.before_requests
@@ -57,6 +60,7 @@ def before_request(login_as: int = None):
     """
     user: dict = get_user()
     g.user = user
+    print(user)
 
 
 @babel.localeselector
@@ -71,7 +75,7 @@ def get_locale():
     if locale and locale in app.config['LANGUAGES']:
         return locale
 
-    return request.accept_languages.best_match(app.config['LANGUAGES'].keys())
+    return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
 @app.route('/', methods=['GET'], strict_slashes=False)
