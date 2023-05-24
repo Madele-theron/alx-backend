@@ -2,7 +2,6 @@
 """A basic Flask app setup with config object"""
 from flask import Flask, render_template, request
 from flask_babel import Babel, _
-app = Flask(__name__)
 
 
 class Config():
@@ -12,6 +11,7 @@ class Config():
     BABEL_DEFAULT_TIMEZONE = 'UTC'
 
 
+app = Flask(__name__)
 app.config.from_object(Config)
 babel = Babel(app)
 
@@ -23,7 +23,7 @@ def get_locale():
     Return:
         language match
     """
-    return request.accept_languages.best_match(app.config['LANGUAGES'].keys())
+    return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
 @app.route('/', methods=['GET'], strict_slashes=False)
