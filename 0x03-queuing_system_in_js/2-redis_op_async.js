@@ -14,16 +14,17 @@ client.once('connect', () => {
     console.log('Redis client connected to the server');
 });
 
-// Task 2
-function setNewSchool(schoolName, value) {
-    client.set(schoolName, value, redis.print);
+// Task 3 - change to async / await
+async function setNewSchool(schoolName, value) {
+    await asyncSet(schoolName, value)
+    .then((response) => {
+        redis.print(`Reply: ${response}`)
+    })
 }
 
-function displaySchoolValue(schoolName) {
-    client.get(schoolName, (error, response) => {
-        console.log(reponse);
-    });
-}
+async function displaySchoolValue(schoolName) {
+        console.log(await asyncGet(schoolName));
+    }
 
 displaySchoolValue('Holberton');
 setNewSchool('HolbertonSanFrancisco', '100');
