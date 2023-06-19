@@ -13,11 +13,11 @@ client.once('connect', () => {
 
 // Task 2
 function setNewSchool(schoolName, value) {
-    cli.set(schoolName, value, redis.print);
+    client.set(schoolName, value, redis.print);
 }
 
 function displaySchoolValue(schoolName) {
-    cli.get(schoolName, (error, response) => {
+    client.get(schoolName, (error, response) => {
         console.log(reponse);
     });
 }
