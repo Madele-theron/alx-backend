@@ -22,7 +22,7 @@ let reservationEnabled;
 app.get('/available_seats', async (request, response) => {
     const numberOfAvailableSeats = await getCurrentAvailableSeats();
     response.json({numberOfAvailableSeats});
-  });
+});
 
   app.get('/reserve_seat', async (request, response) => {
     if (!reservationEnabled) response.json({ "status": "Reservation are blocked" });
@@ -36,7 +36,7 @@ app.get('/available_seats', async (request, response) => {
     });
     job.on('failed', (error) => console.log(`Seat reservation job ${job.id} failed: ${error}`));
     job.on('complete', () => console.log(`Seat reservation job ${job.id} completed`));
-  });
+});
 
   app.get('/process', async (request, response) => {
       queue.process('reserve_seat', async (job, done) => {
